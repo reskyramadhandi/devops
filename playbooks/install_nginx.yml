@@ -1,0 +1,11 @@
+- hosts: web
+  become: yes
+  roles:
+    - nginxinc.nginx
+  vars:
+        nginx_debug_output: true
+        nginx_selinux: true
+        nginx_selinux_tcp_ports:
+          - 80
+          - 443
+

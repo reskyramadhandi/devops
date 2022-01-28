@@ -1,0 +1,41 @@
+---
+- name: Install Jenkins on Bravo Server
+  hosts: bravo
+  become: yes
+  tasks:
+     - name: Add openjdk repository
+       command: "sudo add-apt-repository ppa:openjdk-r/ppa -y"
+
+     - name: Install openjdk
+       apt:
+         name: openjdk-8-jdk
+         state: present
+         update_cache: yes
+
+     - name: Get Java Installed version
+       command: "java -version"
+       register: out
+       changed_when: false
+
+     - debug: var=out.stdout_lines
+
+     - name: ensure the jenkins apt repository key is installed
+       apt_key:
+         url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+         state: present
+
+     - name: ensure the repository is configured
+       apt_repository:
+         repo: 'deb https://pkg.jenkins.io/debian-stable binary/'
+         state: present
+
+     - name: ensure jenkins is installed
+       apt:
+         name: jenkins
+         update_cache: yes
+
+     - name: ensure jenkins is running
+       service:
+         name: jenkins
+         state: started
+
