@@ -1,0 +1,25 @@
+alpha    ansible_host=192.168.100.201     ansible_connection=local
+bravo    ansible_host=192.168.100.202
+charlie  ansible_host=192.168.100.203
+delta    ansible_host=192.168.100.204
+foxtrot  ansible_host=192.168.100.205
+
+[cluster]
+alpha
+bravo
+charlie
+delta
+foxtrot
+
+[cluster:vars]
+ansible_ssh_user=sysadm01
+ansible_become_method=sudo
+ansible_become_pass='{{ become_pass }}'
+
+[web]
+charlie
+delta
+
+[db]
+alpha
+foxtrot
