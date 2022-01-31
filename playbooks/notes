@@ -1,1 +1,3 @@
 ansible-playbook inv book.yml -K
+ansible-playbook -i hosts_key --ask-vault-pass --extra-vars '@psswd.yml' apt_upgrade.yml
+
