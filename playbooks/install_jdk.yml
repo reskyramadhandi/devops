@@ -1,5 +1,5 @@
 - name: Install openjdk java
-  hosts: alpha
+  hosts: foxtrot
   become: yes
   roles:
     - role: lean_delivery.java
